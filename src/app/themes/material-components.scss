@@ -1,0 +1,142 @@
+@mixin material-theme($theme) {
+  // Colors
+  $primary-color: map-get($theme, "primary-color");
+  $secondary-color: map-get($theme, "secondary-color");
+  $placeholder-color: map-get($theme, "placeholder-color");
+
+  // Gradients
+  $primary-color-gradient: map-get($theme, "primary-color-gradient");
+
+  // Background & Foreground
+  $fg-color: map-get($theme, "fg-color");
+  $fg-alt-color: map-get($theme, "fg-alt-color");
+  $bg-color: map-get($theme, "bg-color");
+
+  // Material Shadows
+  $card-shadow: map-get($theme, "card-shadow");
+  $button-shadow: map-get($theme, "button-shadow");
+  $field-shadow: map-get($theme, "field-shadow");
+
+  // Mat Card
+  .mat-card {
+    transition: all 0.5s ease;
+    box-shadow: $card-shadow;
+    background: $bg-color;
+  }
+
+  // Mat Buttons
+  .mat-button {
+    transition: all 0.5s ease;
+    padding: 0.7rem 2rem !important;
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    border-radius: 10px !important;
+
+    box-shadow: $button-shadow;
+
+    @media (min-width: 768px) {
+      padding: 0.9rem 5rem !important;
+      margin: 1rem 0;
+      font-size: 1.5rem;
+    }
+
+    &.block-button {
+      width: 100%;
+    }
+
+    &.gradient-text-button {
+      background-color: $bg-color;
+
+      span {
+        background: linear-gradient($primary-color, $secondary-color);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    &.gradient-button {
+      color: $fg-color;
+      background: linear-gradient(45deg, $primary-color, $secondary-color);
+    }
+  }
+
+  // Stroked Button
+  .mat-stroked-button.white-button,
+  .mat-stroked-button:not([disabled]).white-button {
+    color: $fg-color;
+    border: 3px solid $fg-color;
+  }
+
+  // Fab Button
+  .mat-fab {
+    @media (min-width: 768px) {
+      width: 76px;
+      height: 76px;
+
+      & .material-icons {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  // Mat Form Fields
+  .mat-form-field {
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .mat-form-field-flex {
+    align-items: center !important;
+  }
+
+  .mat-form-field-appearance-outline {
+    .mat-form-field-outline {
+      border-radius: 10px;
+      color: transparent !important;
+      transition: all 0.5s ease;
+
+      box-shadow: $field-shadow;
+      background-color: $bg-color;
+    }
+    &.mat-focused.mat-form-field-invalid .mat-form-field-outline {
+      color: #e53935 !important;
+    }
+    &.mat-focused .mat-form-field-outline {
+      color: #9575cd !important;
+    }
+  }
+
+  .mat-form-field-prefix {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  // Mat Icons
+  .material-icons.gradient {
+    background: linear-gradient(to right top, $primary-color, $secondary-color);
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .mat-icon {
+    width: auto !important;
+    height: auto !important;
+  }
+  .mat-icon-button {
+    transition: all 0.3s ease;
+  }
+
+  // Mat Inputs
+  .mat-form-field-label,
+  .mat-input-element::placeholder {
+    font-size: 1.2rem !important;
+    color: $placeholder-color;
+  }
+
+  .mat-input-element {
+    font-size: 1.2rem;
+    color: $placeholder-color;
+  }
+}

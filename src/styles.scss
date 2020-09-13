@@ -1,1 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap");
+$primary-font: "Ubuntu", sans-serif;
+
+// Light Palette Colors
+$light-bg-color: #f0f0f0;
+$light-fg-color: #fff;
+
+$light-primary-color: #9fa5e4;
+$light-primary-color-accent: #a08fec;
+$light-primary-gradient: rgba(159, 165, 228, 0.8);
+
+$light-secondary-color: #95e5f0;
+$light-secondary-gradient: rgba(149, 229, 240, 0.8);
+
+$light-placeholder-color: $light-primary-color;
+
+$light-shadow: #0001;
+$light-card-shadow: 8px 8px 16px rgba(156, 168, 189, 0.8) !important;
+$light-button-shadow: -8px -8px 20px 0px $light-fg-color,
+  -6px -6px 6px 0px $light-fg-color, 8px 8px 20px 0px $light-shadow,
+  5px 5px 6px 0px $light-shadow, inset 0px 0px 0px 0px $light-fg-color,
+  inset 0px 0px 0px 0px $light-shadow, inset 0px 0px 0px 0px $light-fg-color,
+  inset 0px 0px 0px 0px $light-shadow;
+$light-field-shadow: inset 6px 6px 10px 0 $light-shadow,
+  inset -6px -6px 10px 0 $light-fg-color;
+
+// Dark Palette Colors
+$dark-bg-color: #303030;
+$dark-fg-color: #eeeeee;
+$dark-alt-fg-color: #202020;
+
+$dark-primary-color: #7e57c2;
+$dark-primary-gradient: rgba(126, 87, 194, 0.8);
+
+$dark-secondary-color: #4fc3f7;
+$dark-secondary-gradient: rgba(79, 195, 247, 0.8);
+
+$dark-placeholder-color: #f1f1f1;
+
+$dark-shadow: rgba(58, 58, 58, 0.8);
+$dark-card-shadow: 8px 8px 16px $dark-alt-fg-color !important;
+$dark-button-shadow: -8px -8px 20px 0px $dark-shadow,
+  -6px -6px 6px 0px $dark-shadow, 8px 8px 20px 0px $dark-alt-fg-color,
+  5px 5px 6px 0px $dark-alt-fg-color, inset 0px 0px 0px 0px $dark-alt-fg-color,
+  inset 0px 0px 0px 0px $dark-shadow, inset 0px 0px 0px 0px $dark-alt-fg-color,
+  inset 0px 0px 0px 0px $dark-shadow;
+$dark-field-shadow: inset 6px 6px 10px 0 $dark-alt-fg-color,
+  inset -6px -6px 10px 0 $dark-shadow;
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming;
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+@include mat-core();
+
+$reschool-typography: mat-typography-config(
+  $font-family: $primary-font,
+);
+
+@include angular-material-typography($reschool-typography);
+
+// Custom Thambles Components
+@import "app/themes/material-components.scss";
+@import "app/components/login/login.component.scss";
+
+@mixin custom-components-theme($theme) {
+  @include material-theme($theme);
+  @include login-theme($theme);
+}
+
+// Light Theme
+.light-theme {
+  $reschool-primary: mat-palette($mat-deep-purple, 300);
+  $reschool-accent: mat-palette($mat-indigo, A200, A100, A400);
+  $reschool-warn: mat-palette($mat-pink, A400);
+
+  $light-theme: (
+    // Material Colors
+    "primary": $reschool-primary,
+    "accent": $reschool-accent,
+    "warn": $reschool-warn,
+    // Background & Foreground
+    "bg-color": $light-bg-color,
+    "fg-color": $light-fg-color,
+    "fg-alt-color": $light-fg-color,
+    // Colors
+    "primary-color": $light-primary-color,
+    "primary-color-gradient": $light-primary-gradient,
+    "secondary-color": $light-secondary-color,
+    "secondary-color-gradient": $light-secondary-gradient,
+    "placeholder-color": $light-placeholder-color,
+    // Shadows
+    "shadow": $light-shadow,
+    "card-shadow": $light-card-shadow,
+    "button-shadow": $light-button-shadow,
+    "field-shadow": $light-field-shadow
+  );
+
+  $reschool-theme: mat-light-theme(
+    (
+      color: (
+        primary: $reschool-primary,
+        accent: $reschool-accent,
+        warn: $reschool-warn,
+      ),
+      "light-bg-color": $light-bg-color,
+    )
+  );
+  @include angular-material-theme($reschool-theme);
+  @include custom-components-theme($light-theme);
+}
+
+//Dark Theme
+.dark-theme {
+  $reschool-dark-primary: mat-palette($mat-deep-purple, 300);
+  $reschool-dark-secondary: mat-palette($mat-deep-purple, 200);
+  $reschool-dark-accent: mat-palette($mat-light-blue, 400);
+  $reschool-dark-warn: mat-palette($mat-red, 600);
+
+  $dark-theme: (
+    // Material Colors
+    "primary": $reschool-dark-primary,
+    "accent": $reschool-dark-accent,
+    "warn": $reschool-dark-warn,
+    // Background & Foreground
+    "bg-color": $dark-bg-color,
+    "fg-color": $dark-fg-color,
+    "fg-alt-color": $dark-alt-fg-color,
+    // Colors
+    "primary-color": $dark-primary-color,
+    "primary-color-gradient": $dark-primary-gradient,
+    "secondary-color": $dark-secondary-color,
+    "secondary-color-gradient": $dark-secondary-gradient,
+    "placeholder-color": $dark-placeholder-color,
+    // Shadows
+    "shadow": $dark-shadow,
+    "card-shadow": $dark-card-shadow,
+    "button-shadow": $dark-button-shadow,
+    "field-shadow": $dark-field-shadow
+  );
+
+  $reschool-dark-theme: mat-dark-theme(
+    (
+      color: (
+        primary: $reschool-dark-primary,
+        accent: $reschool-dark-accent,
+        warn: $reschool-dark-warn,
+      ),
+    )
+  );
+
+  @include angular-material-color($reschool-dark-theme);
+  @include custom-components-theme($dark-theme);
+}
+
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  font-family: $primary-font;
+}
+
+app-root {
+  display: block;
+  height: 100vh;
+  transition: all 0.5s ease;
+
+  &.light-theme {
+    background-color: $light-bg-color;
+  }
+  &.dark-theme {
+    background-color: $dark-bg-color;
+  }
+}
+
+// Globals
+h1 {
+  font-size: 3rem;
+  margin: 0;
+  color: $light-fg-color;
+}
