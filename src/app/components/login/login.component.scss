@@ -1,0 +1,459 @@
+lgin-body {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@mixin login-theme($theme) {
+  @include login-background($theme);
+  @include login-content($theme);
+  @include login-box($theme);
+  @include login-form($theme);
+}
+
+@mixin login-background($theme) {
+  // Colors
+  $primary-color: map-get($theme, "primary-color");
+  $bg-color: map-get($theme, "bg-color");
+  $fg-alt-color: map-get($theme, "fg-alt-color");
+  $placeholder-color: map-get($theme, "placeholder-theme");
+  // Gradient Colors
+  $primary-color-gradient: map-get($theme, "primary-color-gradient");
+  $secondary-color-gradient: map-get($theme, "secondary-color-gradient");
+
+  .change-theme {
+    z-index: 3;
+    position: absolute;
+    top: 3%;
+    right: 3%;
+
+    background-color: $bg-color !important;
+    transition: all 0.5s ease;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      top: 5%;
+      right: 5%;
+    }
+  }
+
+  .login-bg {
+    z-index: 0;
+    position: relative;
+    height: 30vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: linear-gradient(
+        $primary-color-gradient,
+        $secondary-color-gradient
+      ),
+      url("../../../assets/bg-image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    text-align: center;
+
+    @media (min-width: 600px) {
+      height: 40vh;
+    }
+
+    @media (min-width: 840px) {
+      height: 70vh;
+    }
+
+    .circle-one {
+      z-index: 4;
+      position: absolute;
+      right: -60%;
+      bottom: -110%;
+
+      width: 18rem;
+      height: 18rem;
+      border-radius: 50%;
+
+      background: linear-gradient(
+        45deg,
+        $secondary-color-gradient,
+        $primary-color
+      );
+
+      @media (min-width: 600px) {
+        right: -20%;
+        bottom: -65%;
+        width: 25rem;
+        height: 25rem;
+      }
+
+      @media (min-width: 840px) {
+        right: 5%;
+        width: 40rem;
+        height: 40rem;
+      }
+    }
+
+    .circle-two {
+      z-index: 2;
+      position: absolute;
+      left: -50%;
+      bottom: -170%;
+
+      width: 15rem;
+      height: 15rem;
+      border-radius: 50%;
+
+      background: linear-gradient(
+        $primary-color-gradient,
+        $secondary-color-gradient
+      );
+
+      @media (min-width: 600px) {
+        left: -20%;
+        width: 22.5rem;
+        bottom: -115%;
+        height: 22.5rem;
+      }
+
+      @media (min-width: 840px) {
+        left: -15%;
+        bottom: -5%;
+        width: 30rem;
+        height: 30rem;
+      }
+    }
+
+    svg {
+      position: absolute;
+      bottom: -1%;
+      right: 0;
+      fill: $bg-color;
+      transition: all 0.5s ease;
+    }
+
+    h1 {
+      color: $fg-alt-color;
+      font-size: 2.5rem;
+      transition: 0.5s;
+
+      span {
+        font-size: 2rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.main {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+@mixin login-content($theme) {
+  // Colors
+  $primary-color: map-get($theme, "primary-color");
+  $secondary-color: map-get($theme, "secondary-color");
+  $fg-color: map-get($theme, "fg-color");
+  $fg-alt-color: map-get($theme, "fg-alt-color");
+
+  .login-content {
+    position: relative;
+    z-index: 1;
+    height: 650px;
+    max-height: 650px;
+    width: 1200px;
+
+    border-radius: 10px;
+
+    .info {
+      z-index: 4;
+      position: absolute;
+      border-radius: 10px 0 0 10px;
+      top: 0;
+      left: 0;
+
+      width: 36%;
+      height: 100%;
+      transition: all 1.5s ease;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: linear-gradient($primary-color, $secondary-color);
+
+      &.info-signup {
+        border-radius: 0 10px 10px 0;
+        left: 64.1%;
+        right: 0;
+      }
+    }
+    .slide-info {
+      animation: slideInfo 1.5s;
+    }
+    @keyframes slideInfo {
+      50% {
+        border-radius: 0;
+        width: 46%;
+      }
+    }
+
+    .message {
+      color: $fg-color;
+      text-align: center;
+      padding: 3rem;
+      max-width: 27rem;
+    }
+  }
+}
+
+@mixin login-box($theme) {
+  // Colors
+  $primary-color: map-get($theme, "primary-color");
+  $secondary-color: map-get($theme, "secondary-color");
+
+  .login-box {
+    z-index: 3;
+    top: 26%;
+    position: absolute;
+
+    text-align: center;
+    margin: 1rem auto;
+    min-height: 100%;
+
+    @media (min-width: 600px) {
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (min-width: 840px) {
+      z-index: 2;
+      top: 0;
+      left: 41%;
+      right: 5%;
+
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      max-width: 54.3%;
+      width: 65%;
+      margin: 0 auto;
+      min-height: 100%;
+      transition: all 1.5s ease;
+
+      &.box-signup {
+        right: 64.1%;
+        left: 5%;
+      }
+    }
+    @media (min-height: 670px) {
+      top: auto;
+    }
+
+    h1 {
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background: linear-gradient(45deg, $secondary-color, $primary-color);
+
+      span {
+        font-size: 2rem;
+        font-weight: 500;
+        color: $primary-color;
+        -webkit-text-fill-color: $primary-color;
+      }
+    }
+  }
+}
+
+@mixin login-form($theme) {
+  // Colors
+  $placeholder-color: map-get($theme, "placeholder-color");
+  $primary-color: map-get($theme, "primary-color");
+  $fg-color: map-get($theme, "fg-color");
+
+  .form-content {
+    padding: 1rem;
+    max-width: 650px;
+    transition: all 1.5s ease;
+
+    legend {
+      color: $placeholder-color;
+      margin-bottom: 2rem;
+      display: block;
+      font-size: 1.48rem;
+      @media (min-width: 600px) {
+        margin: 2rem 0;
+      }
+    }
+
+    .forgot {
+      position: relative;
+      margin-bottom: 4.35rem;
+
+      & a {
+        color: $primary-color;
+        text-decoration: none;
+        font-size: 1.2rem;
+      }
+    }
+
+    .fields-container {
+      height: 273.9px;
+    }
+
+    .fields {
+      position: relative;
+
+      &.fields-signup {
+        left: 0;
+        top: 0;
+      }
+    }
+
+    .options {
+      margin: 1rem 0;
+      @media (min-height: 670px) {
+        margin: 2rem 0;
+      }
+
+      @media (min-width: 600px) {
+        margin: 5rem 0;
+      }
+
+      @media (min-width: 840px) {
+        margin: 1rem 0;
+      }
+
+      .action-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      button {
+        flex: 0 0 calc(50% - 1rem);
+        @media (min-width: 840px) {
+          flex: 1;
+        }
+      }
+    }
+  }
+}
+
+.slide-in {
+  animation: slideIn 1s;
+}
+.slide-out {
+  animation: slideOut 1s;
+}
+
+@keyframes slideIn {
+  from {
+    top: 0;
+    left: -200%;
+    right: 0;
+  }
+  to {
+    left: 0;
+    right: -5%;
+  }
+}
+@keyframes slideOut {
+  from {
+    left: 0;
+    right: -5%;
+  }
+  to {
+    top: 0;
+    left: -200%;
+    right: 0;
+  }
+}
+
+.slide-in-rev {
+  animation: slideInRev 1.5s;
+}
+@keyframes slideInRev {
+  from {
+    top: 0;
+    right: -200%;
+    left: 0;
+  }
+  to {
+    right: 0;
+    left: -5%;
+  }
+}
+.slide-out-rev {
+  animation: slideOutRev 1.5s;
+}
+@keyframes slideOutRev {
+  from {
+    right: 0;
+    left: -5%;
+  }
+  to {
+    top: 0;
+    right: -200%;
+    left: 0;
+  }
+}
+
+.slide-up {
+  animation: slideUp 1s;
+}
+.slide-down {
+  animation: slideDown 1s;
+}
+@keyframes slideUp {
+  from {
+    left: 0;
+    top: 0;
+  }
+  to {
+    top: -33%;
+  }
+}
+@keyframes slideDown {
+  from {
+    left: 0;
+    top: 0;
+  }
+  to {
+    top: 32%;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s;
+}
+.fade-out {
+  animation: fadeOut 1s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0;
+  }
+}

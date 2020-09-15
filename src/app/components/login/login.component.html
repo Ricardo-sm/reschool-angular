@@ -1,0 +1,211 @@
+<div class="login-body">
+  <div class="login-bg">
+    <div class="circle-one"></div>
+    <div class="circle-two"></div>
+
+    <button *ngIf="!isWeb" mat-fab class="change-theme" (click)="changeTheme()">
+      <mat-icon class="gradient">
+        {{ darkMode ? "brightness_5" : "brightness_2" }}
+      </mat-icon>
+    </button>
+
+    <h1 *ngIf="!isWeb">
+      ReSchool
+      <span id="span-mode">| {{ loginMode ? "LogIn" : "SignUp" }}</span>
+    </h1>
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill-opacity="1"
+        d="M0,64L60,74.7C120,85,240,107,360,144C480,181,600,235,720,234.7C840,235,960,181,1080,181.3C1200,181,1320,235,1380,261.3L1440,288L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
+      ></path>
+    </svg>
+  </div>
+
+  <div *ngIf="isWeb" class="main">
+    <button mat-fab class="change-theme" (click)="changeTheme()">
+      <mat-icon class="gradient">
+        {{ darkMode ? "brightness_5" : "brightness_2" }}
+      </mat-icon>
+    </button>
+
+    <mat-card class="login-content">
+      <div [ngClass]="{ 'info-signup': !loginMode }" class="info">
+        <div class="message">
+          <h1>Join into ReSchool</h1>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit
+            accusamus, harum, voluptatibus, aliquid soluta doloribus ullam
+            labore a dolore eveniet magni sequi delectus.
+          </p>
+          <button
+            type="button"
+            mat-button
+            mat-stroked-button
+            class="white-button action"
+            (click)="slideAnimation()"
+          >
+            {{ loginMode ? "SIGN UP" : "LOG IN" }}
+          </button>
+        </div>
+      </div>
+
+      <ng-container *ngTemplateOutlet="logInBox"></ng-container>
+    </mat-card>
+  </div>
+
+  <div *ngIf="!isWeb" class="mb-login-box">
+    <ng-container *ngTemplateOutlet="logInBox"></ng-container>
+  </div>
+</div>
+
+<ng-template #logInBox>
+  <div [ngClass]="{ 'box-signup': !loginMode }" class="login-box">
+    <h1 *ngIf="isWeb">
+      ReSchool
+      <span>| {{ loginMode ? "LogIn" : "SignUp" }} </span>
+    </h1>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="submitForm()"
+      class="form-content"
+    >
+      <legend id="legend-form" [ngClass]="{ 'fade-in': loginMode }">
+        {{
+          loginMode
+            ? "Please LogIn To Your Account"
+            : "Welcome, Create An Account"
+        }}
+      </legend>
+
+      <div class="fields-container">
+        <div class="fields">
+          <mat-form-field
+            id="username-field"
+            *ngIf="!loginMode"
+            appearance="outline"
+            [ngClass]="{ 'slide-in': !isWeb }"
+          >
+            <mat-label>Username</mat-label>
+            <input type="text" matInput formControlName="username" />
+            <mat-icon matPrefix class="gradient">person</mat-icon>
+            <mat-error
+              *ngIf="loginForm.controls['username'].hasError('required')"
+            >
+              Username is <strong>required</strong>
+            </mat-error>
+
+            <mat-error
+              *ngIf="loginForm.controls['username'].hasError('server')"
+            >
+              {{ errorMessage | titlecase }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            id="email-field"
+            [ngClass]="{ 'slide-in': !isWeb }"
+          >
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="email" />
+            <mat-icon matPrefix class="gradient">email</mat-icon>
+            <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
+              Please enter a valid email address
+            </mat-error>
+
+            <mat-error *ngIf="loginForm.controls['email'].hasError('server')">
+              {{ errorMessage | titlecase }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" id="password-field">
+            <mat-label>Password</mat-label>
+            <input
+              [type]="hidePass ? 'text' : 'password'"
+              matInput
+              formControlName="password"
+            />
+            <mat-icon matPrefix class="gradient">vpn_key</mat-icon>
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="hidePass = !hidePass"
+            >
+              <mat-icon class="gradient">
+                {{ hidePass ? "visibility" : "visibility_off" }}
+              </mat-icon>
+            </button>
+
+            <mat-error
+              *ngIf="loginForm.controls['password'].hasError('required')"
+            >
+              Password is <strong>required</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="loginForm.controls['password'].hasError('minlength')"
+            >
+              Password must have at least 8 characters
+            </mat-error>
+
+            <mat-error
+              *ngIf="loginForm.controls['password'].hasError('server')"
+            >
+              {{ errorMessage | titlecase }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="loginMode" class="forgot">
+          <a href="#">Forgot Your Password or Email?</a>
+        </div>
+      </div>
+
+      <div class="options">
+        <div class="action-buttons">
+          <ng-container *ngIf="isWeb; else mobileButtons">
+            <button
+              mat-button
+              type="submit"
+              class="block-button gradient-button"
+            >
+              {{ loginMode ? "LOG IN" : "SIGN UP" }}
+            </button>
+          </ng-container>
+          <ng-template #mobileButtons>
+            <button
+              *ngIf="!isWeb"
+              id="m-button-signup"
+              [type]="loginMode ? 'button' : 'submit'"
+              mat-button
+              [ngClass]="{
+                'gradient-button': !loginMode,
+                'gradient-text-button': loginMode
+              }"
+              (click)="loginMode ? mobileAnimation() : submitForm()"
+            >
+              SIGN UP
+            </button>
+
+            <button
+              mat-button
+              id="m-button-login"
+              [type]="loginMode ? 'submit' : 'button'"
+              [ngClass]="{
+                'gradient-text-button': !loginMode,
+                'gradient-button': loginMode
+              }"
+              (click)="loginMode ? submitForm() : mobileAnimation()"
+            >
+              LOG IN
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
