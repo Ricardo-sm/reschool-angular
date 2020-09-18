@@ -81,7 +81,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   submitForm(): void {
-    console.log('Submit');
     this.user = this.loginForm.value as User;
 
     if (this.loginMode) {
@@ -103,7 +102,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       .logIn(user)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
-        (data) => console.log(data),
+        (data) => {
+          localStorage.setItem('token', data.data.toString());
+          if (data) this.router.navigate['/home'];
+        },
         (err: ApolloError) => this.handleErrors(err.graphQLErrors[0])
       );
   }
@@ -140,10 +142,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   slideAnimation(): void {
-    this.loginForm.controls['username'].setErrors(null);
-    this.loginForm.controls['email'].setErrors(null);
-    this.loginForm.controls['password'].setErrors(null);
-
     const infoElement: Element = document.querySelector('.info');
     const boxElement: Element = document.querySelector('.login-box');
 
@@ -159,7 +157,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       setTimeout(() => {
         this.loginMode = !this.loginMode;
-        this.loginForm.controls['username'].setErrors(null);
         this.loginForm.reset();
         console.log(this.loginForm.value);
       }, 400);
@@ -175,17 +172,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       setTimeout(() => {
         this.loginMode = !this.loginMode;
-        this.loginForm.controls['username'].setErrors(null);
         this.loginForm.reset();
       }, 500);
     }
   }
 
   mobileAnimation(): void {
-    this.loginForm.controls['username'].setErrors(null);
-    this.loginForm.controls['email'].setErrors(null);
-    this.loginForm.controls['password'].setErrors(null);
-
     const usernameField: Element = document.querySelector('#username-field');
     let forgotLink: Element = document.querySelector('.forgot');
     const fieldsContainer: Element = document.querySelector('.fields');
@@ -214,8 +206,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
       setTimeout(() => {
         this.loginMode = !this.loginMode;
-        this.loginForm.controls['username'].setErrors(null);
-        console.log(this.loginForm.controls['email'].errors);
         this.loginForm.reset();
       }, 1000);
     } else {
