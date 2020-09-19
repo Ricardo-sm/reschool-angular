@@ -4,11 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 // Routes's Components
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './shared/auth.guard';
+import { LoggedInGuard } from './shared/logged-in.guard';
 
 const routes: Routes = [
-  { path: '**', redirectTo: '' },
   { path: '', pathMatch: 'full', redirectTo: '/login' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', canActivate: [LoggedInGuard], component: LoginComponent },
   {
     path: 'home',
     canLoad: [AuthGuard],

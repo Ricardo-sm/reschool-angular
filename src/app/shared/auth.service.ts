@@ -12,6 +12,7 @@ export class AuthService {
   }
 
   loggedIn(): boolean {
+    console.log(localStorage.getItem('token'));
     return !!localStorage.getItem('token');
   }
 
