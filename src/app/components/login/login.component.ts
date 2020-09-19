@@ -102,9 +102,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       .logIn(user)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
-        (data) => {
-          localStorage.setItem('token', data.data.toString());
-          if (data) this.router.navigate['/home'];
+        ({ data }: any) => {
+          if (data) {
+            localStorage.setItem('token', data.logIn);
+            this.router.navigate['/home'];
+          }
         },
         (err: ApolloError) => this.handleErrors(err.graphQLErrors[0])
       );
